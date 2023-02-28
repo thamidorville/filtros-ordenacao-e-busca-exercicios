@@ -1,6 +1,8 @@
 import React from "react";
 import { Container } from "./styles";
-
+// - No componente `Header` temos um array de 
+// tipos de pokemon que está sendo mapeado e 
+// retornando as opções dentro do dropdown de tipos.
 const Header = (props) => {
   const pokemontypesArray = [
     "Normal",
@@ -23,7 +25,7 @@ const Header = (props) => {
     "Fairy",
   ];
 
-  const handleSearch = (e) => {
+  const handleSearch = (e) => {  //função manipuladora
     props.setPesquisa(e.target.value);
   };
 
@@ -45,17 +47,18 @@ const Header = (props) => {
         onChange={handleSearch}
         value={props.pesquisa}
       />
-      <select>
+      <select value={props.ordenar} onChange={(e)=> {props.setOrdenar(e.target.value)}}>
         <option value="">Ordenar</option>
-        <option value="">Crescente</option>
-        <option value="">Decrescente</option>
+        <option value="crescente">Crescente</option>
+        <option value="decrescente">Decrescente</option>
       </select>
       <select
         name="tipo"
         id="tipo"
+        value={props.type} onChange={(e)=>{props.setType(e.target.value)}}
           >
-        <option value="">Selecione um tipo</option>
-        {pokemontypesArray.map((type) => {
+        <option>Selecione um tipo</option>
+        {pokemontypesArray.map((type) => { //para cada tipo eu tenho um type //mapeie cada item(type) desse array
           return (
             <option key={type} value={type}>
               {type}
