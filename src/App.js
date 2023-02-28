@@ -19,9 +19,10 @@ const CardsContainer = styled.div`
   justify-items: center;
 `;
 function App() {
-  const [pesquisa, setPesquisa] = useState("");
+  const [pesquisa, setPesquisa] = useState(""); //	variável de estado que guardará a pesquisa do usuário
   const [idFilter, setIdFilter] = useState("");
-
+  const [type, setType] = useState("")
+  const [ordenar, setOrdenar] = useState("crescente")
   return (
     <>
       <GlobalStyle />
@@ -30,14 +31,27 @@ function App() {
         setIdFilter={setIdFilter}
         pesquisa={pesquisa}
         setPesquisa={setPesquisa}
+        type={type}
+        setType={setType}
+        ordenar={ordenar}
+        setOrdenar={setOrdenar}
       />
-      <CardsContainer>
+      <CardsContainer> 
         {pokemons.filter((pokemon) => {
           return idFilter ? pokemon.id.includes(idFilter) : pokemon
         })
           .filter((pokemon) => {
             return pokemon.name.english.toLowerCase().includes(pesquisa.toLowerCase());
           })
+          .filter((pokemon)=> {
+              return type && pokemon.type.includes(type)
+            
+          })
+         .sort((a,b)=> {
+          if (ordenar === "crescente"){
+            return a.name.english < b.name.english ? -1 : 1
+}})
+        
           .map((pokemon) => {
             return (
               <PokemonCard
